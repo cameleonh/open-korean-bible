@@ -1,9 +1,9 @@
 # 한국어 현대어 성경 (Korean Modern Bible)
 
-성경 원문(개역한글)을 자연스러운 현대 한국어 구어체로 번역한 데이터셋입니다.
+개역한글 성경을 자연스러운 현대 한국어 구어체로 옮긴 데이터셋입니다.
 
 - **구약 39권 + 신약 27권 = 66권, 31,102절**
-- 라이선스: [CC0 1.0 (퍼블릭 도메인)](LICENSE) — 상업적 이용 포함 자유롭게 사용 가능
+- 라이선스: [CC BY 4.0](LICENSE) — 출처 표기 시 상업적 이용 포함 자유롭게 사용 가능
 - 번역 규칙: 아래 [번역 원칙](#번역-원칙) 참고
 
 ---
@@ -99,6 +99,83 @@ GitHub Releases에서 각 버전의 스냅샷을 다운로드할 수 있습니�
 
 ```bash
 python3 scripts/export.py
+```
+
+---
+
+## 번역자
+
+기완 — 개인 프로젝트로, 현대인이 읽기 쉬운 성경 텍스트 데이터를 만들기 위해 제작했습니다.
+
+---
+
+## 번역 품질 안내
+
+이 데이터셋은 **AI 생성 번역**을 기반으로 합니다. 신학적 정확성이나 교단별 해석을 보증하지 않습니다. 예배·설교·교육 등 신앙적 목적보다는 **텍스트 데이터·자연어처리·앱 개발** 용도에 적합합니다.
+
+오역 발견 시 Issue로 제보해 주세요.
+
+---
+
+## 사용 예시
+
+### Python
+
+```python
+import json
+
+with open("data/bible_all.json") as f:
+    bible = json.load(f)
+
+# 창세기 1장 1절 현대어 번역 출력
+genesis = next(b for b in bible["books"] if b["book"] == "창세기")
+print(genesis["chapters"][0]["verses"][0]["modern"])
+```
+
+```python
+import sqlite3
+
+conn = sqlite3.connect("data/bible.db")
+cursor = conn.cursor()
+
+# 특정 구절 조회
+cursor.execute("""
+    SELECT modern FROM verses
+    WHERE book = '요한복음' AND chapter = 3 AND verse = 16
+""")
+print(cursor.fetchone()[0])
+```
+
+```python
+import pandas as pd
+
+df = pd.read_csv("data/bible.csv")
+
+# 신약 전체 현대어 텍스트
+nt = df[df["testament"] == "신약"]["modern"]
+print(nt.head())
+```
+
+### JavaScript
+
+```js
+const fs = require("fs");
+const bible = JSON.parse(fs.readFileSync("data/bible_all.json", "utf8"));
+
+// 고유명사 강조 표시
+function highlight(text) {
+  return text.replace(/\{\{([^}]+)\}\}/g, "<b>$1</b>");
+}
+
+const genesis = bible.books.find((b) => b.book === "창세기");
+const verse = genesis.chapters[0].verses[0].modern;
+console.log(highlight(verse));
+```
+
+### 출처 표기 예시 (CC BY 4.0)
+
+```
+한국어 현대어 성경 데이터셋, 기완 (https://github.com/korean-modern-bible/opensource-bible), CC BY 4.0
 ```
 
 ---
