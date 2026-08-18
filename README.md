@@ -118,6 +118,9 @@ python3 scripts/export.py
 ---
 
 ## 사용 예시
+<img width="782" height="495" alt="image" src="https://github.com/user-attachments/assets/4c8313b1-a14e-48d2-ba95-87958b459040" />
+
+
 
 ### Python
 
