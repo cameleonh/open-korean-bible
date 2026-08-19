@@ -9,6 +9,11 @@ Versioning follows [Semantic Versioning](https://semver.org/):
 
 ---
 
+## [1.0.1] - 2026-08-19
+
+### Fixed
+- 마가복음 7:16 — 누락되었던 현대어 번역 추가 (원문은 있으나 `modern` 필드가 비어 있었음)
+
 ## [1.0.0] - 2026-08-18
 
 ### Added
